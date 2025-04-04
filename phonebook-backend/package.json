@@ -7,7 +7,7 @@
     "start": "node index.js",
     "dev": "nodemon index.js",
     "build:ui": "rm -rf dist && cd /f/web-projects/part3/phonebook-frontend && npm run build && cp -r dist /f/web-projects/part3/phonebook-backend",
-    "deploy:full": "npm run build:ui && cd /f/web-projects/part3 && git add . && git commit -m uibuild && git push"
+    "deploy:full": "npm run build:ui && cd /f/web-projects/part3 && git add . && git commit -m uibuild && git push origin master"
   },
   "author": "Samuel Lindholm",
   "license": "MIT",
