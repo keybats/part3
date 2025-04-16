@@ -122,10 +122,16 @@ const App = () => {
           
         })
       .catch(error => {
-        setMessage({text: `${newName} was already removed from server`, className: 'error'})
-          setTimeout(() => {
-            setMessage(null)
-          }, 5000)
+        if (error.name === 'Validation error') {
+          setMessage({text: error.message, className: 'error'})  
+        }
+        else{
+          setMessage({text: `${newName} was already removed from server`, className: 'error'})
+        }
+        
+        setTimeout(() => {
+          setMessage(null)
+        }, 5000)
       })  
 
 
