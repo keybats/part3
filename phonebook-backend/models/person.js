@@ -23,7 +23,32 @@ const personSchema = new mongoose.Schema({
   },
   number: {
     type: String,
-    required: true
+    required: true,
+    minLength: 8,
+    validate: {
+      validator: (v) => { 
+        const number = v.split('')
+        let nonInts = 0
+        
+        if (number[2] === '-' || number[3] === '-') {
+          
+          number.forEach(element => {
+            console.log(parseInt(element))
+            if (isNaN(parseInt(element))) {
+              
+              nonInts++
+            }
+          })
+        }
+        
+        if (nonInts === 1) {
+          return true
+        }
+        else {
+          return false
+        }
+      }, message: props => `${props.value} is not a valid phonenumber!`
+    }
   }
 })
 

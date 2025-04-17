@@ -89,12 +89,18 @@ const App = () => {
     event.preventDefault()
     
     
+    
     if (persons.find((person) => person.name === newName) === undefined) {
       
       personServices
         .create({name: newName, number: newNumber})
         .then(response => {
           setPersons(persons.concat(response))
+        })
+        .catch(error => {
+          if (true) {
+            setMessage({text: error.response.data.error, className: 'error'})  
+          }
         })
 
       setMessage({text: `Added ${newName}`, className: 'addPerson'})
@@ -122,10 +128,11 @@ const App = () => {
           
         })
       .catch(error => {
-        if (error.name === 'Validation error') {
-          setMessage({text: error.message, className: 'error'})  
-        }
-        else{
+        console.log(error.response)
+        if (error.status === 400) {
+          setMessage({text: error.response.data.error, className: 'error'})
+        } 
+        else {
           setMessage({text: `${newName} was already removed from server`, className: 'error'})
         }
         

@@ -9,9 +9,6 @@ const Person = require('./models/person')
 const { pseudoRandomBytes } = require('crypto')
 
 
-
-
-
 app.use(express.json())
 app.use(express.static('dist'))
 app.use(morgan(':method :url :status :res[content-length] - :response-time ms :content'))
@@ -77,11 +74,7 @@ app.put('/api/persons/:id', (request, response, next) => {
 
 app.post('/api/persons', (reqest, response, next) => {
   const body = reqest.body
-  // if (!body.name || !body.number) {
-  //   return response.status(400).json({ 
-  //     error: 'number or name missing' 
-  //   })
-  // }
+
   
   
     
@@ -104,9 +97,10 @@ app.post('/api/persons', (reqest, response, next) => {
           person.save().then(savedPerson => {
             response.json((savedPerson))
           })
+          .catch(error => next(error))
         }
       })
-      .catch(error => next(error))
+      
   
 
 
@@ -129,7 +123,7 @@ const errorHandler = (error, request, response, next) => {
   if (error.name === 'CastError') {
     return response.status(400).send({ error: 'malformatted id' })
   }
-  if (error.name === 'ValidationError') {
+  else if (error.name === 'ValidationError') {
     return response.status(400).send({ error: error.message})
   }
 
