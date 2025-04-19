@@ -8,7 +8,7 @@ const url = process.env.MONGODB_URI
 console.log('connecting to', url)
 mongoose.connect(url)
 
-  .then(result => {
+  .then(() => {
     console.log('connected to MongoDB')
   })
   .catch(error => {
@@ -26,21 +26,17 @@ const personSchema = new mongoose.Schema({
     required: true,
     minLength: 8,
     validate: {
-      validator: (v) => { 
+      validator: (v) => {
         const number = v.split('')
         let nonInts = 0
-        
         if (number[2] === '-' || number[3] === '-') {
-          
           number.forEach(element => {
             console.log(parseInt(element))
             if (isNaN(parseInt(element))) {
-              
               nonInts++
             }
           })
         }
-        
         if (nonInts === 1) {
           return true
         }
