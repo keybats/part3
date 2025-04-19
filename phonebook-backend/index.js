@@ -1,13 +1,8 @@
-//const http = require('http')
 const express = require('express')
-//const { log } = require('console')
 const app = express()
 const morgan = require('morgan')
-//const { runInNewContext } = require('vm')
 require('dotenv').config()
 const Person = require('./models/person')
-//const { pseudoRandomBytes } = require('crypto')
-
 
 app.use(express.json())
 app.use(express.static('dist'))
