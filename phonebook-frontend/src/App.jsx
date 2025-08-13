@@ -56,6 +56,7 @@ const App = () => {
     personServices
       .getAll()
       .then(initialPersons => {
+        console.log(initialPersons)
         setPersons(initialPersons)
       })
   }, [])
@@ -98,9 +99,9 @@ const App = () => {
           setPersons(persons.concat(response))
         })
         .catch(error => {
-          if (true) {
-            setMessage({text: error.response.data.error, className: 'error'})  
-          }
+        
+          setMessage({text: error.response.data.error, className: 'error'})  
+        
         })
 
       setMessage({text: `Added ${newName}`, className: 'addPerson'})
